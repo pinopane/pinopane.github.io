@@ -11,7 +11,7 @@ const sharedTape = ['C#', '.NET', 'Azure', 'DevOps', 'Kubernetes', 'gRPC', 'SOA'
 
 const sharedSkillItems = {
   backend: ['C#', '.NET Core', '.NET Framework 4.x', 'ASP.NET MVC', 'WCF', 'gRPC / gRPC-Web', 'SOA', 'TDD'],
-  frontend: ['JavaScript', 'TypeScript', 'Angular', 'Node.js', 'HTML5', 'CSS3', 'JSON', 'jQuery'],
+  frontend: ['JavaScript', 'TypeScript', 'React', 'Angular', 'Node.js', 'HTML5', 'CSS', 'JSON'],
   cloud: [
     'Azure (PaaS, SaaS, IaaS)',
     'Azure DevOps',
