@@ -59,8 +59,44 @@ function MotionButton({ href, className, children }) {
 function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDelay = 0, children, ...props }) {
   const [lens, setLens] = useState({ x: 50, y: 50, a: 0, hover: false });
   const phaseRef = useRef(Math.random() * Math.PI * 2);
+  const blockRef = useRef(null);
 
   useEffect(() => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (isCoarsePointer) {
+      const onScroll = () => {
+        const el = blockRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const inView = rect.bottom > 0 && rect.top < vh;
+
+        if (!inView) {
+          setLens((prev) => ({ ...prev, a: 0 }));
+          return;
+        }
+
+        const center = rect.top + rect.height / 2;
+        const delta = (center - vh / 2) / (vh / 2);
+        const intensity = Math.max(0, 1 - Math.abs(delta));
+        const scrollRatio = (vh - rect.top) / (vh + rect.height);
+        const y = Math.max(10, Math.min(90, scrollRatio * 100));
+        const x = 50 + Math.sin(window.scrollY / 180 + phaseRef.current) * 24;
+
+        setLens((prev) => ({
+          ...prev,
+          x,
+          y,
+          a: 0.2 + intensity * 0.8
+        }));
+      };
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+
     let rafId = 0;
     const loop = (time) => {
       setLens((prev) => {
@@ -89,6 +125,7 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDe
 
   return (
     <Tag
+      ref={blockRef}
       {...props}
       className={`code-lens ${className}`.trim()}
       onMouseEnter={() => setLens((prev) => ({ ...prev, hover: true, a: 1 }))}
@@ -113,8 +150,48 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDe
 function TiltCard({ className, children, ...props }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0, hover: false });
   const phaseRef = useRef(Math.random() * Math.PI * 2);
+  const cardRef = useRef(null);
 
   useEffect(() => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (isCoarsePointer) {
+      const onScroll = () => {
+        const el = cardRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const inView = rect.bottom > 0 && rect.top < vh;
+
+        if (!inView) {
+          setTilt((prev) => ({ ...prev, mA: 0, x: 0, y: 0 }));
+          return;
+        }
+
+        const center = rect.top + rect.height / 2;
+        const delta = (center - vh / 2) / (vh / 2);
+        const intensity = Math.max(0, 1 - Math.abs(delta));
+        const scrollRatio = (vh - rect.top) / (vh + rect.height);
+        const py = Math.max(10, Math.min(90, scrollRatio * 100));
+        const px = 50 + Math.sin(window.scrollY / 190 + phaseRef.current) * 22;
+
+        setTilt((prev) => ({
+          ...prev,
+          x: -delta * 2,
+          y: Math.sin(window.scrollY / 400 + phaseRef.current) * 1.8,
+          gX: px,
+          gY: py,
+          mX: px,
+          mY: py,
+          mA: 0.22 + intensity * 0.78
+        }));
+      };
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+
     let rafId = 0;
     const loop = (time) => {
       setTilt((prev) => {
@@ -163,6 +240,7 @@ function TiltCard({ className, children, ...props }) {
 
   return (
     <article
+      ref={cardRef}
       {...props}
       className={`tilt-card ${className}`}
       onMouseEnter={() => setTilt((prev) => ({ ...prev, hover: true, mA: 1 }))}
