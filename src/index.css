@@ -635,6 +635,14 @@ body {
     min-height: auto;
     display: block;
   }
+
+  .code-lens-layer {
+    color: rgba(126, 213, 239, 0.34);
+    opacity: calc(0.04 + (var(--ma, 0) * 0.42));
+    background:
+      radial-gradient(circle at 50% 50%, rgba(126, 213, 239, 0.08), transparent 60%),
+      linear-gradient(120deg, rgba(12, 22, 35, 0.3), rgba(9, 14, 22, 0.45));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

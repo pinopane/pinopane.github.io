@@ -68,7 +68,7 @@ export const siteContent = {
     ],
     heroTape: sharedTape,
     heroMetrics: [
-      { value: '15+', label: 'anios de experiencia' },
+      { value: '15+', label: 'años de experiencia' },
       { value: '4', label: 'roles clave enterprise' },
       { value: '100%', label: 'foco en calidad tecnica' }
     ],
