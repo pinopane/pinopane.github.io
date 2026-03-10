@@ -36,7 +36,7 @@ const sharedSkillItems = {
 
 export const siteContent = {
   es: {
-    metaTitle: 'DrPinoCode | Senior .NET & Cloud Engineer',
+    metaTitle: 'drpinocode.com | Senior .NET & Cloud Engineer',
     logoTagline: 'DESARROLLO DE SOLUCIONES DE NEGOCIO',
     profile: {
       name: 'Daniel Pino Panepinto',
@@ -53,7 +53,7 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultado',
       linkedin: 'LinkedIn',
-      footer: '© 2026 DrPinoCode'
+      footer: '© 2026 drpinocode.com'
     },
     cta: {
       projects: 'Ver proyectos',
@@ -191,7 +191,7 @@ export const siteContent = {
     }
   },
   en: {
-    metaTitle: 'DrPinoCode | Senior .NET & Cloud Engineer',
+    metaTitle: 'drpinocode.com | Senior .NET & Cloud Engineer',
     logoTagline: 'BUSINESS SOLUTIONS DEVELOPMENT',
     profile: {
       name: 'Daniel Pino Panepinto',
@@ -208,7 +208,7 @@ export const siteContent = {
       role: 'Role',
       result: 'Result',
       linkedin: 'LinkedIn',
-      footer: '© 2026 DrPinoCode'
+      footer: '© 2026 drpinocode.com'
     },
     cta: {
       projects: 'View projects',
@@ -346,7 +346,7 @@ export const siteContent = {
     }
   },
   it: {
-    metaTitle: 'DrPinoCode | Senior .NET & Cloud Engineer',
+    metaTitle: 'drpinocode.com | Senior .NET & Cloud Engineer',
     logoTagline: 'SVILUPPO DI SOLUZIONI BUSINESS',
     profile: {
       name: 'Daniel Pino Panepinto',
@@ -363,7 +363,7 @@ export const siteContent = {
       role: 'Ruolo',
       result: 'Risultato',
       linkedin: 'LinkedIn',
-      footer: '© 2026 DrPinoCode'
+      footer: '© 2026 drpinocode.com'
     },
     cta: {
       projects: 'Vedi progetti',
@@ -501,7 +501,7 @@ export const siteContent = {
     }
   },
   ca: {
-    metaTitle: 'DrPinoCode | Senior .NET & Cloud Engineer',
+    metaTitle: 'drpinocode.com | Senior .NET & Cloud Engineer',
     logoTagline: 'DESENVOLUPAMENT DE SOLUCIONS DE NEGOCI',
     profile: {
       name: 'Daniel Pino Panepinto',
@@ -518,7 +518,7 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultat',
       linkedin: 'LinkedIn',
-      footer: '© 2026 DrPinoCode'
+      footer: '© 2026 drpinocode.com'
     },
     cta: {
       projects: 'Veure projectes',

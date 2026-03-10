@@ -56,8 +56,43 @@ function MotionButton({ href, className, children }) {
   );
 }
 
+function CodeLensBlock({ as: Tag = 'article', className = '', code = '', children, ...props }) {
+  const [lens, setLens] = useState({ x: 50, y: 50, a: 0 });
+
+  const handleMove = (event) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    setLens({ x, y, a: 1 });
+  };
+
+  const handleLeave = () => setLens((prev) => ({ ...prev, a: 0 }));
+
+  return (
+    <Tag
+      {...props}
+      className={`code-lens ${className}`.trim()}
+      onMouseEnter={() => setLens((prev) => ({ ...prev, a: 1 }))}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{
+        ...(props.style || {}),
+        '--mx': `${lens.x}%`,
+        '--my': `${lens.y}%`,
+        '--ma': lens.a
+      }}
+    >
+      <div className="lens-content">{children}</div>
+      <pre aria-hidden="true" className="code-lens-layer">
+        {code}
+      </pre>
+    </Tag>
+  );
+}
+
 function TiltCard({ className, children, ...props }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0 });
 
   const handleMove = (event) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -66,24 +101,31 @@ function TiltCard({ className, children, ...props }) {
     const py = (event.clientY - rect.top) / rect.height;
     const x = (0.5 - py) * 7;
     const y = (px - 0.5) * 9;
-    setTilt({ x, y, gX: px * 100, gY: py * 100 });
+    setTilt({ x, y, gX: px * 100, gY: py * 100, mX: px * 100, mY: py * 100, mA: 1 });
   };
 
-  const handleLeave = () => setTilt({ x: 0, y: 0, gX: 50, gY: 50 });
+  const handleLeave = () => setTilt({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0 });
 
   return (
     <article
       {...props}
       className={`tilt-card ${className}`}
+      onMouseEnter={() => setTilt((prev) => ({ ...prev, mA: 1 }))}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         '--gx': `${tilt.gX}%`,
-        '--gy': `${tilt.gY}%`
+        '--gy': `${tilt.gY}%`,
+        '--mx': `${tilt.mX}%`,
+        '--my': `${tilt.mY}%`,
+        '--ma': tilt.mA
       }}
     >
-      {children}
+      <div className="lens-content">{children}</div>
+      <pre aria-hidden="true" className="code-lens-layer">
+        {props.code || ''}
+      </pre>
       <span aria-hidden="true" className="tilt-glare" />
     </article>
   );
@@ -101,7 +143,7 @@ function BrandLogo({ compact = false, tagline = '', className = '' }) {
     <svg
       viewBox="0 0 1080 280"
       role="img"
-      aria-label="DrPinoCode logo"
+      aria-label="drpinocode.com logo"
       className={`brand-logo ${className}`.trim()}
     >
       <defs>
@@ -260,6 +302,14 @@ function App() {
   const glowOffset = useMemo(() => Math.min(scrollY * 0.1, 120), [scrollY]);
   const lineOffset = useMemo(() => Math.min(scrollY * 0.04, 56), [scrollY]);
   const codeSnippets = ['<Cloud/>', '<DevOps/>', '<gRPC/>', '<SOLID/>', '<Azure/>', '<Scale/>'];
+  const lensCode = {
+    about: `public interface IValueDelivery {\n  Task<Impact> BuildAsync(ProductGoal goal);\n}\n\nservices.AddScoped<IValueDelivery, ProductEngineering>();`,
+    skills: `builder.Services.AddControllers();\nbuilder.Services.AddEndpointsApiExplorer();\nbuilder.Services.AddSwaggerGen();\n\napp.UseRouting();\napp.MapControllers();`,
+    experience: `public async Task<Result> ExecuteAsync(Request req) {\n  using var tx = await _db.Database.BeginTransactionAsync();\n  var data = await _repo.LoadAsync(req.Id);\n  await _bus.PublishAsync(new DomainEvent(data));\n  await tx.CommitAsync();\n  return Result.Ok();\n}`,
+    projects: `public sealed class CloudModule {\n  public void Configure(WebApplicationBuilder builder) {\n    builder.Services.AddHealthChecks();\n    builder.Services.AddOpenTelemetry();\n    builder.Services.AddAzureClients();\n  }\n}`,
+    work: `if (isMaintainable && isObservable) {\n  ship(value);\n} else {\n  refactor();\n  addTests();\n}`,
+    contact: `// Let's build something solid.\nvar contact = new {\n  Email = "ceo@drpinocode.com",\n  Channel = "LinkedIn"\n};`
+  };
 
   const getSectionStyle = (id) => {
     const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -430,9 +480,9 @@ function App() {
             <SectionTitle label={t.about.label} title={t.about.title} text={t.about.text} />
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
               {t.about.points.map((point) => (
-                <article key={point} className="card reveal" data-reveal>
+                <CodeLensBlock key={point} className="card reveal" data-reveal code={lensCode.about}>
                   <p className="text-sm leading-relaxed text-textMuted">{point}</p>
-                </article>
+                </CodeLensBlock>
               ))}
             </div>
           </div>
@@ -443,7 +493,7 @@ function App() {
             <SectionTitle label={t.skills.label} title={t.skills.title} />
             <div className="mt-10 grid gap-5 sm:grid-cols-2">
               {t.skills.groups.map((group) => (
-                <article key={group.title} className="card card-hover reveal" data-reveal>
+                <CodeLensBlock key={group.title} className="card card-hover reveal" data-reveal code={lensCode.skills}>
                   <h3 className="font-display text-xl font-semibold text-white">{group.title}</h3>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {group.items.map((item) => (
@@ -452,7 +502,7 @@ function App() {
                       </li>
                     ))}
                   </ul>
-                </article>
+                </CodeLensBlock>
               ))}
             </div>
           </div>
@@ -463,10 +513,11 @@ function App() {
             <SectionTitle label={t.experience.label} title={t.experience.title} text={t.experience.text} />
             <div className="relative mt-10 space-y-5 before:absolute before:left-4 before:top-3 before:h-[calc(100%-1.5rem)] before:w-px before:bg-gradient-to-b before:from-accent/70 before:to-transparent sm:before:left-6">
               {t.experience.items.map((item) => (
-                <article
+                <CodeLensBlock
                   key={item.title + item.period}
                   className="card card-hover reveal relative pl-10 sm:pl-14"
                   data-reveal
+                  code={lensCode.experience}
                 >
                   <span className="absolute left-2 top-7 h-4 w-4 rounded-full border border-accentSoft bg-slateDeep sm:left-4" />
                   <p className="text-[11px] uppercase tracking-[0.16em] text-accentSoft/85">{item.period}</p>
@@ -482,7 +533,7 @@ function App() {
                       </li>
                     ))}
                   </ul>
-                </article>
+                </CodeLensBlock>
               ))}
             </div>
           </div>
@@ -493,7 +544,7 @@ function App() {
             <SectionTitle label={t.projects.label} title={t.projects.title} text={t.projects.text} />
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {t.projects.items.map((project) => (
-                <TiltCard key={project.name} className="project-card reveal" data-reveal>
+                <TiltCard key={project.name} className="project-card reveal" data-reveal code={lensCode.projects}>
                   <h3 className="font-display text-2xl font-semibold text-white">{project.name}</h3>
                   <p className="mt-4 text-sm leading-relaxed text-textMuted">{project.description}</p>
                   <dl className="mt-6 space-y-3 text-sm">
@@ -521,10 +572,10 @@ function App() {
             <SectionTitle label={t.workStyle.label} title={t.workStyle.title} />
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {t.workStyle.items.map((item) => (
-                <article key={item.title} className="card card-hover reveal" data-reveal>
+                <CodeLensBlock key={item.title} className="card card-hover reveal" data-reveal code={lensCode.work}>
                   <h3 className="font-display text-xl font-semibold text-white">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-textMuted">{item.text}</p>
-                </article>
+                </CodeLensBlock>
               ))}
             </div>
           </div>
@@ -533,7 +584,12 @@ function App() {
         <section id="contact" className="section story-section pb-6">
           <div className="section-shell" style={getSectionStyle('contact')}>
             <SectionTitle label={t.contact.label} title={t.contact.title} text={t.contact.text} />
-            <div className="reveal mt-10 rounded-3xl border border-line/90 bg-panel/70 p-8 shadow-panel" data-reveal>
+            <CodeLensBlock
+              as="div"
+              className="reveal mt-10 rounded-3xl border border-line/90 bg-panel/70 p-8 shadow-panel"
+              data-reveal
+              code={lensCode.contact}
+            >
               <a
                 className="font-display text-2xl text-textBase transition hover:text-white"
                 href={`mailto:${t.profile.email}`}
@@ -545,7 +601,7 @@ function App() {
                   {t.labels.linkedin}
                 </a>
               </div>
-            </div>
+            </CodeLensBlock>
           </div>
         </section>
       </main>

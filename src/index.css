@@ -308,6 +308,43 @@ body {
   box-shadow: 0 16px 40px rgba(4, 7, 12, 0.42);
 }
 
+.code-lens {
+  position: relative;
+  overflow: hidden;
+}
+
+.lens-content {
+  position: relative;
+  z-index: 3;
+}
+
+.code-lens-layer {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 1rem 1.05rem;
+  z-index: 2;
+  pointer-events: none;
+  white-space: pre-wrap;
+  overflow: hidden;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: rgba(126, 213, 239, 0.6);
+  opacity: calc(0.08 + (var(--ma, 0) * 0.92));
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(126, 213, 239, 0.18), transparent 56%),
+    linear-gradient(120deg, rgba(12, 22, 35, 0.58), rgba(9, 14, 22, 0.84));
+  clip-path: circle(calc(18px + (var(--ma, 0) * 120px)) at var(--mx, 50%) var(--my, 50%));
+  transition: opacity 220ms ease, clip-path 220ms ease;
+}
+
+.code-lens:hover .code-lens-layer {
+  opacity: 0.95;
+  clip-path: circle(132px at var(--mx, 50%) var(--my, 50%));
+}
+
 .card::before {
   content: '';
   position: absolute;
@@ -619,6 +656,7 @@ body {
   .floating-code,
   .scroll-progress,
   .card::before,
+  .code-lens-layer,
   .metric-card,
   .section-accent::after,
   .logo-hero-glow,
@@ -640,6 +678,10 @@ body {
 
   .tilt-glare {
     display: none;
+  }
+
+  .code-lens-layer {
+    transition: none;
   }
 
   .section-shell {
