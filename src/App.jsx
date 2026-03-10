@@ -61,14 +61,12 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDe
   const phaseRef = useRef(Math.random() * Math.PI * 2);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
     let rafId = 0;
     const loop = (time) => {
       setLens((prev) => {
         if (prev.hover) return prev;
         const p = phaseRef.current + pulseDelay;
-        const cycle = (Math.sin(time / 1000 + p) + 1) * 0.5;
+        const cycle = (Math.sin(time / 318 + p) + 1) * 0.5;
         return {
           ...prev,
           x: 50 + Math.sin(time / 820 + p) * 26,
@@ -117,14 +115,12 @@ function TiltCard({ className, children, ...props }) {
   const phaseRef = useRef(Math.random() * Math.PI * 2);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
     let rafId = 0;
     const loop = (time) => {
       setTilt((prev) => {
         if (prev.hover) return prev;
         const p = phaseRef.current;
-        const cycle = (Math.sin(time / 1000 + p) + 1) * 0.5;
+        const cycle = (Math.sin(time / 318 + p) + 1) * 0.5;
         const px = 50 + Math.sin(time / 860 + p) * 24;
         const py = 50 + Math.cos(time / 1120 + p * 1.3) * 20;
         return {
@@ -380,12 +376,10 @@ function App() {
     const y = state.normalized * -56;
     const scale = 0.92 + state.intensity * 0.08;
     const opacity = 0.42 + state.intensity * 0.58;
-    const blur = (1 - state.intensity) * 2.4;
 
     return {
       transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-      opacity,
-      filter: `blur(${blur}px)`
+      opacity
     };
   };
 
