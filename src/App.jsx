@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { defaultLanguage, languageOptions, siteContent } from './content.js';
 
 function getInitialLanguage() {
@@ -58,23 +58,29 @@ function MotionButton({ href, className, children }) {
 
 function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDelay = 0, children, ...props }) {
   const [lens, setLens] = useState({ x: 50, y: 50, a: 0, hover: false });
+  const phaseRef = useRef(Math.random() * Math.PI * 2);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
-    const interval = setInterval(() => {
+    let rafId = 0;
+    const loop = (time) => {
       setLens((prev) => {
         if (prev.hover) return prev;
-        return { ...prev, x: 18 + Math.random() * 64, y: 18 + Math.random() * 64, a: 1 };
+        const p = phaseRef.current + pulseDelay;
+        const cycle = (Math.sin(time / 1000 + p) + 1) * 0.5;
+        return {
+          ...prev,
+          x: 50 + Math.sin(time / 820 + p) * 26,
+          y: 50 + Math.cos(time / 1080 + p * 1.2) * 22,
+          a: cycle > 0.78 ? 1 : 0.14
+        };
       });
-
-      setTimeout(() => {
-        setLens((prev) => (prev.hover ? prev : { ...prev, a: 0 }));
-      }, 720);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
+      rafId = window.requestAnimationFrame(loop);
+    };
+    rafId = window.requestAnimationFrame(loop);
+    return () => window.cancelAnimationFrame(rafId);
+  }, [pulseDelay]);
 
   const handleMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -89,7 +95,7 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDe
       className={`code-lens ${className}`.trim()}
       onMouseEnter={() => setLens((prev) => ({ ...prev, hover: true, a: 1 }))}
       onMouseMove={handleMove}
-      onMouseLeave={() => setLens((prev) => ({ ...prev, hover: false, a: 0 }))}
+      onMouseLeave={() => setLens((prev) => ({ ...prev, hover: false, a: 1 }))}
       style={{
         ...(props.style || {}),
         '--pulse-delay': `${pulseDelay}s`,
@@ -108,22 +114,34 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDe
 
 function TiltCard({ className, children, ...props }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0, hover: false });
+  const phaseRef = useRef(Math.random() * Math.PI * 2);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
-    const interval = setInterval(() => {
+    let rafId = 0;
+    const loop = (time) => {
       setTilt((prev) => {
         if (prev.hover) return prev;
-        return { ...prev, mX: 16 + Math.random() * 68, mY: 16 + Math.random() * 68, mA: 1 };
+        const p = phaseRef.current;
+        const cycle = (Math.sin(time / 1000 + p) + 1) * 0.5;
+        const px = 50 + Math.sin(time / 860 + p) * 24;
+        const py = 50 + Math.cos(time / 1120 + p * 1.3) * 20;
+        return {
+          ...prev,
+          x: Math.cos(time / 1300 + p) * 1.4,
+          y: Math.sin(time / 1200 + p) * 2.2,
+          gX: px,
+          gY: py,
+          mX: px,
+          mY: py,
+          mA: cycle > 0.78 ? 1 : 0.14
+        };
       });
-
-      setTimeout(() => {
-        setTilt((prev) => (prev.hover ? prev : { ...prev, mA: 0 }));
-      }, 720);
-    }, 2000);
-
-    return () => clearInterval(interval);
+      rafId = window.requestAnimationFrame(loop);
+    };
+    rafId = window.requestAnimationFrame(loop);
+    return () => window.cancelAnimationFrame(rafId);
   }, []);
 
   const handleMove = (event) => {
@@ -145,7 +163,7 @@ function TiltCard({ className, children, ...props }) {
     }));
   };
 
-  const handleLeave = () => setTilt((prev) => ({ ...prev, x: 0, y: 0, gX: 50, gY: 50, mA: 0, hover: false }));
+  const handleLeave = () => setTilt((prev) => ({ ...prev, hover: false, mA: 1 }));
 
   return (
     <article
