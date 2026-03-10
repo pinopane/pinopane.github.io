@@ -56,28 +56,43 @@ function MotionButton({ href, className, children }) {
   );
 }
 
-function CodeLensBlock({ as: Tag = 'article', className = '', code = '', children, ...props }) {
-  const [lens, setLens] = useState({ x: 50, y: 50, a: 0 });
+function CodeLensBlock({ as: Tag = 'article', className = '', code = '', pulseDelay = 0, children, ...props }) {
+  const [lens, setLens] = useState({ x: 50, y: 50, a: 0, hover: false });
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const interval = setInterval(() => {
+      setLens((prev) => {
+        if (prev.hover) return prev;
+        return { ...prev, x: 18 + Math.random() * 64, y: 18 + Math.random() * 64, a: 1 };
+      });
+
+      setTimeout(() => {
+        setLens((prev) => (prev.hover ? prev : { ...prev, a: 0 }));
+      }, 720);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleMove = (event) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
-    setLens({ x, y, a: 1 });
+    setLens((prev) => ({ ...prev, x, y, a: 1 }));
   };
-
-  const handleLeave = () => setLens((prev) => ({ ...prev, a: 0 }));
 
   return (
     <Tag
       {...props}
       className={`code-lens ${className}`.trim()}
-      onMouseEnter={() => setLens((prev) => ({ ...prev, a: 1 }))}
+      onMouseEnter={() => setLens((prev) => ({ ...prev, hover: true, a: 1 }))}
       onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
+      onMouseLeave={() => setLens((prev) => ({ ...prev, hover: false, a: 0 }))}
       style={{
         ...(props.style || {}),
+        '--pulse-delay': `${pulseDelay}s`,
         '--mx': `${lens.x}%`,
         '--my': `${lens.y}%`,
         '--ma': lens.a
@@ -92,7 +107,24 @@ function CodeLensBlock({ as: Tag = 'article', className = '', code = '', childre
 }
 
 function TiltCard({ className, children, ...props }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0, hover: false });
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const interval = setInterval(() => {
+      setTilt((prev) => {
+        if (prev.hover) return prev;
+        return { ...prev, mX: 16 + Math.random() * 68, mY: 16 + Math.random() * 68, mA: 1 };
+      });
+
+      setTimeout(() => {
+        setTilt((prev) => (prev.hover ? prev : { ...prev, mA: 0 }));
+      }, 720);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleMove = (event) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -101,16 +133,25 @@ function TiltCard({ className, children, ...props }) {
     const py = (event.clientY - rect.top) / rect.height;
     const x = (0.5 - py) * 7;
     const y = (px - 0.5) * 9;
-    setTilt({ x, y, gX: px * 100, gY: py * 100, mX: px * 100, mY: py * 100, mA: 1 });
+    setTilt((prev) => ({
+      ...prev,
+      x,
+      y,
+      gX: px * 100,
+      gY: py * 100,
+      mX: px * 100,
+      mY: py * 100,
+      mA: 1
+    }));
   };
 
-  const handleLeave = () => setTilt({ x: 0, y: 0, gX: 50, gY: 50, mX: 50, mY: 50, mA: 0 });
+  const handleLeave = () => setTilt((prev) => ({ ...prev, x: 0, y: 0, gX: 50, gY: 50, mA: 0, hover: false }));
 
   return (
     <article
       {...props}
       className={`tilt-card ${className}`}
-      onMouseEnter={() => setTilt((prev) => ({ ...prev, mA: 1 }))}
+      onMouseEnter={() => setTilt((prev) => ({ ...prev, hover: true, mA: 1 }))}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{
@@ -480,7 +521,7 @@ function App() {
             <SectionTitle label={t.about.label} title={t.about.title} text={t.about.text} />
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
               {t.about.points.map((point) => (
-                <CodeLensBlock key={point} className="card reveal" data-reveal code={lensCode.about}>
+                <CodeLensBlock key={point} className="card reveal" data-reveal code={lensCode.about} pulseDelay={0.1}>
                   <p className="text-sm leading-relaxed text-textMuted">{point}</p>
                 </CodeLensBlock>
               ))}
@@ -493,7 +534,13 @@ function App() {
             <SectionTitle label={t.skills.label} title={t.skills.title} />
             <div className="mt-10 grid gap-5 sm:grid-cols-2">
               {t.skills.groups.map((group) => (
-                <CodeLensBlock key={group.title} className="card card-hover reveal" data-reveal code={lensCode.skills}>
+                <CodeLensBlock
+                  key={group.title}
+                  className="card card-hover reveal"
+                  data-reveal
+                  code={lensCode.skills}
+                  pulseDelay={0.35}
+                >
                   <h3 className="font-display text-xl font-semibold text-white">{group.title}</h3>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {group.items.map((item) => (
@@ -518,6 +565,7 @@ function App() {
                   className="card card-hover reveal relative pl-10 sm:pl-14"
                   data-reveal
                   code={lensCode.experience}
+                  pulseDelay={0.55}
                 >
                   <span className="absolute left-2 top-7 h-4 w-4 rounded-full border border-accentSoft bg-slateDeep sm:left-4" />
                   <p className="text-[11px] uppercase tracking-[0.16em] text-accentSoft/85">{item.period}</p>
@@ -572,7 +620,13 @@ function App() {
             <SectionTitle label={t.workStyle.label} title={t.workStyle.title} />
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {t.workStyle.items.map((item) => (
-                <CodeLensBlock key={item.title} className="card card-hover reveal" data-reveal code={lensCode.work}>
+                <CodeLensBlock
+                  key={item.title}
+                  className="card card-hover reveal"
+                  data-reveal
+                  code={lensCode.work}
+                  pulseDelay={0.75}
+                >
                   <h3 className="font-display text-xl font-semibold text-white">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-textMuted">{item.text}</p>
                 </CodeLensBlock>
@@ -589,6 +643,7 @@ function App() {
               className="reveal mt-10 rounded-3xl border border-line/90 bg-panel/70 p-8 shadow-panel"
               data-reveal
               code={lensCode.contact}
+              pulseDelay={0.9}
             >
               <a
                 className="font-display text-2xl text-textBase transition hover:text-white"

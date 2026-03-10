@@ -332,17 +332,17 @@ body {
   line-height: 1.45;
   letter-spacing: 0.02em;
   color: rgba(126, 213, 239, 0.6);
-  opacity: calc(0.08 + (var(--ma, 0) * 0.92));
+  opacity: calc(0.1 + (var(--ma, 0) * 0.85));
   background:
-    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(126, 213, 239, 0.18), transparent 56%),
+    radial-gradient(circle at 50% 50%, rgba(126, 213, 239, 0.18), transparent 56%),
     linear-gradient(120deg, rgba(12, 22, 35, 0.58), rgba(9, 14, 22, 0.84));
-  clip-path: circle(calc(18px + (var(--ma, 0) * 120px)) at var(--mx, 50%) var(--my, 50%));
-  transition: opacity 220ms ease, clip-path 220ms ease;
+  clip-path: circle(calc(40px + (var(--ma, 0) * 105px)) at var(--mx, 50%) var(--my, 50%));
+  transition: opacity 220ms ease, clip-path 260ms ease;
 }
 
 .code-lens:hover .code-lens-layer {
   opacity: 0.95;
-  clip-path: circle(132px at var(--mx, 50%) var(--my, 50%));
+  clip-path: circle(145px at var(--mx, 50%) var(--my, 50%));
 }
 
 .card::before {
@@ -682,6 +682,8 @@ body {
 
   .code-lens-layer {
     transition: none;
+    opacity: 0.45;
+    clip-path: circle(110px at 50% 50%);
   }
 
   .section-shell {
