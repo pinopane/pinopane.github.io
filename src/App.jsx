@@ -14,7 +14,7 @@ function SectionTitle({ label, title, text }) {
   return (
     <header className="reveal max-w-3xl" data-reveal>
       <p className="section-kicker">
-        <span className="code-inline">&lt;{label} /&gt;</span>
+        <span className="code-inline">&lt;{label}/&gt;</span>
       </p>
       <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-white sm:text-5xl">{title}</h2>
       <div className="section-accent mt-5" aria-hidden="true" />
@@ -83,8 +83,8 @@ function BrandLogo({ compact = false, tagline = '', className = '' }) {
 
       <g filter={compact ? undefined : `url(#${glowId})`}>
         <path d="M44 40v200h80a100 100 0 0 0 0-200H44z" fill="none" stroke={`url(#${strokeId})`} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M242 26v214" fill="none" stroke={`url(#${strokeId})`} strokeWidth="11" strokeLinecap="round" />
-        <path d="M242 26h76a78 78 0 0 1 0 156h-76" fill="none" stroke={`url(#${strokeId})`} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M242 26v240" fill="none" stroke={`url(#${strokeId})`} strokeWidth="11" strokeLinecap="round" />
+        <path d="M258 40h74a78 78 0 0 1 0 156h-74" fill="none" stroke={`url(#${strokeId})`} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
       </g>
 
       <g fill={`url(#${textId})`}>

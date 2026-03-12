@@ -53,7 +53,7 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultado',
       linkedin: 'LinkedIn',
-      footer: '(c) 2026 drpinocode.com',
+      footer: '© 2026 drpinocode.com',
       services: 'Servicios',
       approach: 'Enfoque',
       delivery: 'Entrega'
@@ -225,7 +225,7 @@ export const siteContent = {
       role: 'Role',
       result: 'Result',
       linkedin: 'LinkedIn',
-      footer: '(c) 2026 drpinocode.com',
+      footer: '© 2026 drpinocode.com',
       services: 'Services',
       approach: 'Approach',
       delivery: 'Delivery'
@@ -397,7 +397,7 @@ export const siteContent = {
       role: 'Ruolo',
       result: 'Risultato',
       linkedin: 'LinkedIn',
-      footer: '(c) 2026 drpinocode.com',
+      footer: '© 2026 drpinocode.com',
       services: 'Servizi',
       approach: 'Approccio',
       delivery: 'Consegna'
@@ -569,7 +569,7 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultat',
       linkedin: 'LinkedIn',
-      footer: '(c) 2026 drpinocode.com',
+      footer: '© 2026 drpinocode.com',
       services: 'Serveis',
       approach: 'Enfocament',
       delivery: 'Entrega'
