@@ -4,13 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        ink: '#08101d',
         slateDeep: '#10161f',
         textBase: '#dce3ec',
         textMuted: '#95a2b3',
         line: '#1b2533',
         panel: '#111a27',
         accent: '#4f7f8b',
-        accentSoft: '#79a8b5'
+        accentSoft: '#79a8b5',
+        sunrise: '#ff9c66'
       },
       fontFamily: {
         display: ['Sora', 'sans-serif'],

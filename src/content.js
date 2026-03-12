@@ -1,10 +1,10 @@
 export const defaultLanguage = 'es';
 
 export const languageOptions = [
-  { code: 'es', label: 'ES', flag: '🇪🇸', name: 'Espanol' },
-  { code: 'en', label: 'EN', flag: '🇬🇧', name: 'English' },
-  { code: 'it', label: 'IT', flag: '🇮🇹', name: 'Italiano' },
-  { code: 'ca', label: 'CA', flag: 'CAT', name: 'Catala' }
+  { code: 'es', label: 'ES', flag: 'ES', name: 'Español' },
+  { code: 'en', label: 'EN', flag: 'EN', name: 'English' },
+  { code: 'it', label: 'IT', flag: 'IT', name: 'Italiano' },
+  { code: 'ca', label: 'CA', flag: 'CA', name: 'Catala' }
 ];
 
 const sharedTape = ['C#', '.NET', 'Azure', 'DevOps', 'Kubernetes', 'gRPC', 'SOA', 'Clean Architecture'];
@@ -41,9 +41,9 @@ export const siteContent = {
     profile: {
       name: 'Daniel Pino Panepinto',
       role: 'Senior .NET & Cloud Engineer',
-      claim: 'Arquitectura cloud, DevOps y desarrollo .NET para producto critico.',
+      claim: 'Arquitectura cloud, DevOps y desarrollo .NET para producto crítico.',
       summary:
-        'Ingeniero de software especializado en .NET, Azure y practicas DevOps. Construyo soluciones robustas con foco en escalabilidad, mantenimiento y velocidad de entrega sostenible.',
+        'Ingeniero de software especializado en .NET, Azure y prácticas DevOps. Construyo soluciones robustas con foco en escalabilidad, mantenimiento y velocidad de entrega sostenible.',
       email: 'ceo@drpinocode.com',
       linkedin: 'https://www.linkedin.com/in/daniel-pino-panepinto-19aa728a/'
     },
@@ -53,7 +53,10 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultado',
       linkedin: 'LinkedIn',
-      footer: '© 2026 drpinocode.com'
+      footer: '(c) 2026 drpinocode.com',
+      services: 'Servicios',
+      approach: 'Enfoque',
+      delivery: 'Entrega'
     },
     cta: {
       projects: 'Ver proyectos',
@@ -70,21 +73,35 @@ export const siteContent = {
     heroMetrics: [
       { value: '15+', label: 'años de experiencia' },
       { value: '4', label: 'roles clave enterprise' },
-      { value: '100%', label: 'foco en calidad tecnica' }
+      { value: '100%', label: 'foco en calidad técnica' }
+    ],
+    heroServices: [
+      {
+        title: 'Arquitectura .NET de alto nivel',
+        text: 'Diseño backend y soluciones cloud para sistemas que tienen que durar y crecer.'
+      },
+      {
+        title: 'Azure y DevOps con foco real',
+        text: 'Pipelines, despliegues y observabilidad para reducir fricción operativa.'
+      },
+      {
+        title: 'Modernización de plataformas',
+        text: 'Refactor, evolución y mejora de producto sin romper el negocio.'
+      }
     ],
     about: {
       label: 'Perfil',
-      title: 'Ejecucion sobria, decisiones tecnicas fuertes y detalle en cada capa',
-      text: 'Mi trabajo combina vision de producto con una base de ingenieria solida para construir sistemas fiables y faciles de evolucionar.',
+      title: 'Ejecución sobria, decisiones técnicas fuertes y detalle en cada capa',
+      text: 'Mi trabajo combina visión de producto con una base de ingeniería sólida para construir sistemas fiables y fáciles de evolucionar.',
       points: [
-        'Combino ingenieria backend solida con practicas cloud y automatizacion para entornos de alta exigencia.',
-        'Trabajo con vision de producto y enfoque tecnico: decisiones claras, deuda controlada y software durable.',
-        'Experiencia construyendo y evolucionando plataformas en sectores con operacion critica.'
+        'Combino ingeniería backend sólida con prácticas cloud y automatización para entornos de alta exigencia.',
+        'Trabajo con visión de producto y enfoque técnico: decisiones claras, deuda controlada y software durable.',
+        'Experiencia construyendo y evolucionando plataformas en sectores con operación crítica.'
       ]
     },
     skills: {
       label: 'Stack',
-      title: 'Tecnologia seleccionada para rendimiento, escala y mantenibilidad',
+      title: 'Tecnología seleccionada para rendimiento, escala y mantenibilidad',
       groups: [
         { title: 'Backend Engineering', items: sharedSkillItems.backend },
         { title: 'Frontend', items: sharedSkillItems.frontend },
@@ -94,29 +111,29 @@ export const siteContent = {
     },
     experience: {
       label: 'Trayectoria',
-      title: 'Recorrido tecnico orientado a impacto',
-      text: 'Experiencia en ingenieria .NET y arquitectura cloud aplicada a productos y operaciones criticas.',
+      title: 'Recorrido técnico orientado a impacto',
+      text: 'Experiencia en ingeniería .NET y arquitectura cloud aplicada a productos y operaciones críticas.',
       items: [
         {
           period: 'Jun 2020 - Actualidad',
           title: 'Software Engineer .NET / Azure Cloud Solutions (AXA)',
-          company: 'UST Global - Barcelona, Espana',
+          company: 'UST Global - Barcelona, España',
           impact:
-            'Diseno y evolucion de soluciones .NET sobre Azure para entorno enterprise, con foco en escalabilidad, integracion de servicios y practicas DevOps.',
+            'Diseño y evolución de soluciones .NET sobre Azure para entorno enterprise, con foco en escalabilidad, integración de servicios y prácticas DevOps.',
           tags: ['.NET', 'Azure', 'Cloud Architecture']
         },
         {
           period: 'Feb 2017 - Jun 2020',
           title: 'Software Architect / Software Engineer .NET',
-          company: 'Necsia IT Consulting - Barcelona, Espana',
+          company: 'Necsia IT Consulting - Barcelona, España',
           impact:
-            'Definicion de arquitectura y desarrollo de soluciones empresariales en ecosistemas .NET, reforzando calidad tecnica y mantenibilidad.',
-          tags: ['Arquitectura', 'Consultoria', 'Entrega tecnica']
+            'Definición de arquitectura y desarrollo de soluciones empresariales en ecosistemas .NET, reforzando calidad técnica y mantenibilidad.',
+          tags: ['Arquitectura', 'Consultoría', 'Entrega técnica']
         },
         {
           period: 'Ene 2016 - Feb 2017',
           title: 'Software Engineer .NET (Vueling Airlines)',
-          company: 'IN2 - Barcelona, Espana',
+          company: 'IN2 - Barcelona, España',
           impact:
             'Desarrollo de componentes orientados a servicios y aplicaciones web con patrones de arquitectura y acceso a datos en SQL Server.',
           tags: ['SOA', 'ASP.NET MVC', 'SQL Server']
@@ -126,7 +143,7 @@ export const siteContent = {
           title: 'Software Engineer Full Stack / DevOps Engineer',
           company: 'Amagi Services - Caracas, Venezuela',
           impact:
-            'Construccion de soluciones full stack con .NET, Angular/Node.js y practicas de automatizacion; administracion de Team Foundation Server.',
+            'Construcción de soluciones full stack con .NET, Angular/Node.js y prácticas de automatización; administración de Team Foundation Server.',
           tags: ['Full Stack', 'DevOps', 'Integraciones']
         }
       ]
@@ -139,54 +156,54 @@ export const siteContent = {
         {
           name: 'Plataforma Cloud para Seguros (AXA)',
           description:
-            'Evolucion de soluciones empresariales en Azure con arquitectura orientada a servicios y despliegue continuo.',
+            'Evolución de soluciones empresariales en Azure con arquitectura orientada a servicios y despliegue continuo.',
           stack: '.NET, Azure, Azure DevOps, SQL/Cosmos DB',
           role: 'Software Engineer .NET / Azure Cloud Solutions',
-          result: 'Mejora de escalabilidad operativa y mayor confiabilidad en produccion.'
+          result: 'Mejora de escalabilidad operativa y mayor confiabilidad en producción.'
         },
         {
           name: 'Arquitectura .NET para Sistemas Corporativos',
           description:
-            'Definicion y ejecucion de arquitectura tecnica en proyectos enterprise, aplicando patrones de diseno y principios SOLID.',
+            'Definición y ejecución de arquitectura técnica en proyectos enterprise, aplicando patrones de diseño y principios SOLID.',
           stack: 'C#, .NET Framework/Core, DI, TDD, N-Tier',
           role: 'Software Architect / Software Engineer',
-          result: 'Codigo mas mantenible y reduccion de friccion en evolucion funcional.'
+          result: 'Código más mantenible y reducción de fricción en evolución funcional.'
         },
         {
-          name: 'Ecosistema de Servicios para Operacion Aerea',
+          name: 'Ecosistema de Servicios para Operación Aérea',
           description:
-            'Desarrollo de servicios y aplicaciones web en entorno airline, con integracion de datos y capa de presentacion orientada a negocio.',
+            'Desarrollo de servicios y aplicaciones web en entorno airline, con integración de datos y capa de presentación orientada a negocio.',
           stack: 'ASP.NET MVC, WCF, SQL Server, JavaScript',
           role: 'Software Engineer .NET',
-          result: 'Procesos mas consistentes y mejor soporte a operaciones criticas.'
+          result: 'Procesos más consistentes y mejor soporte a operaciones críticas.'
         }
       ]
     },
     workStyle: {
       label: 'Forma de trabajar',
-      title: 'Claridad, performance y codigo mantenible',
+      title: 'Claridad, performance y código mantenible',
       items: [
         {
           title: 'Arquitectura con criterio',
-          text: 'Diseno soluciones que escalan sin comprometer simplicidad ni mantenibilidad.'
+          text: 'Diseño soluciones que escalan sin comprometer simplicidad ni mantenibilidad.'
         },
         {
           title: 'DevOps aplicado',
-          text: 'Automatizo pipeline y despliegues para reducir riesgo y acelerar valor.'
+          text: 'Automatizo pipelines y despliegues para reducir riesgo y acelerar valor.'
         },
         {
-          title: 'Calidad tecnica',
-          text: 'Patrones solidos, buenas practicas y enfoque constante en deuda tecnica.'
+          title: 'Calidad técnica',
+          text: 'Patrones sólidos, buenas prácticas y enfoque constante en deuda técnica.'
         },
         {
-          title: 'Orientacion a producto',
-          text: 'Cada decision tecnica se alinea con impacto real en negocio y operacion.'
+          title: 'Orientación a producto',
+          text: 'Cada decisión técnica se alinea con impacto real en negocio y operación.'
         }
       ]
     },
     contact: {
       label: 'Contacto',
-      title: 'Construimos algo de alto nivel?',
+      title: '¿Construimos algo de alto nivel?',
       text: 'Disponible para nuevos retos en producto digital, arquitectura y desarrollo full stack.'
     }
   },
@@ -208,7 +225,10 @@ export const siteContent = {
       role: 'Role',
       result: 'Result',
       linkedin: 'LinkedIn',
-      footer: '© 2026 drpinocode.com'
+      footer: '(c) 2026 drpinocode.com',
+      services: 'Services',
+      approach: 'Approach',
+      delivery: 'Delivery'
     },
     cta: {
       projects: 'View projects',
@@ -226,6 +246,20 @@ export const siteContent = {
       { value: '15+', label: 'years of experience' },
       { value: '4', label: 'key enterprise roles' },
       { value: '100%', label: 'focus on technical quality' }
+    ],
+    heroServices: [
+      {
+        title: 'High-level .NET architecture',
+        text: 'Backend and cloud solution design for systems that need to last and scale.'
+      },
+      {
+        title: 'Azure and DevOps that matter',
+        text: 'Pipelines, deployments and observability to reduce operational friction.'
+      },
+      {
+        title: 'Platform modernization',
+        text: 'Refactor, evolve and improve product without disrupting the business.'
+      }
     ],
     about: {
       label: 'Profile',
@@ -363,7 +397,10 @@ export const siteContent = {
       role: 'Ruolo',
       result: 'Risultato',
       linkedin: 'LinkedIn',
-      footer: '© 2026 drpinocode.com'
+      footer: '(c) 2026 drpinocode.com',
+      services: 'Servizi',
+      approach: 'Approccio',
+      delivery: 'Consegna'
     },
     cta: {
       projects: 'Vedi progetti',
@@ -381,6 +418,20 @@ export const siteContent = {
       { value: '15+', label: 'anni di esperienza' },
       { value: '4', label: 'ruoli enterprise chiave' },
       { value: '100%', label: 'focus su qualita tecnica' }
+    ],
+    heroServices: [
+      {
+        title: 'Architettura .NET di alto livello',
+        text: 'Progetto backend e soluzioni cloud per sistemi destinati a durare e crescere.'
+      },
+      {
+        title: 'Azure e DevOps concreti',
+        text: 'Pipeline, deploy e osservabilita per ridurre la frizione operativa.'
+      },
+      {
+        title: 'Modernizzazione delle piattaforme',
+        text: 'Refactor ed evoluzione del prodotto senza interrompere il business.'
+      }
     ],
     about: {
       label: 'Profilo',
@@ -518,7 +569,10 @@ export const siteContent = {
       role: 'Rol',
       result: 'Resultat',
       linkedin: 'LinkedIn',
-      footer: '© 2026 drpinocode.com'
+      footer: '(c) 2026 drpinocode.com',
+      services: 'Serveis',
+      approach: 'Enfocament',
+      delivery: 'Entrega'
     },
     cta: {
       projects: 'Veure projectes',
@@ -536,6 +590,20 @@ export const siteContent = {
       { value: '15+', label: 'anys d experiencia' },
       { value: '4', label: 'rols clau enterprise' },
       { value: '100%', label: 'focus en qualitat tecnica' }
+    ],
+    heroServices: [
+      {
+        title: 'Arquitectura .NET d alt nivell',
+        text: 'Disseny backend i solucions cloud per a sistemes que han de durar i escalar.'
+      },
+      {
+        title: 'Azure i DevOps aplicats',
+        text: 'Pipelines, desplegaments i observabilitat per reduir friccio operativa.'
+      },
+      {
+        title: 'Modernitzacio de plataformes',
+        text: 'Refactor i evolucio de producte sense trencar el negoci.'
+      }
     ],
     about: {
       label: 'Perfil',
