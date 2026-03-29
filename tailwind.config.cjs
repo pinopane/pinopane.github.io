@@ -4,20 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        slateDeep: '#05070c',
-        textBase: '#dce3ec',
-        textMuted: '#95a2b3',
-        line: '#141b26',
-        panel: '#090e16',
-        accent: '#4f7f8b',
-        accentSoft: '#79a8b5'
+        bg: '#080808',
+        surface: '#0e0e0e',
+        'surface-2': '#141414',
+        base: '#e2e2e2',
+        muted: '#555555',
+        faint: '#222222',
+        accent: '#7ef2ff',
+        line: 'rgba(255,255,255,0.07)'
       },
       fontFamily: {
-        display: ['Sora', 'sans-serif'],
-        body: ['Plus Jakarta Sans', 'sans-serif']
-      },
-      boxShadow: {
-        panel: '0 16px 36px rgba(8, 12, 18, 0.35)'
+        sans: ['"Space Grotesk"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
       }
     }
   },

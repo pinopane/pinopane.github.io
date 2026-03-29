@@ -1,4 +1,22 @@
 node_modules/
 dist/
+
+# env & local config
+.env
+.env.*
+*.local
+
+# Vite cache
+.vite/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Logs
 npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Claude local config
+.claude/
